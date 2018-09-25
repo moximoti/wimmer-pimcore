@@ -1,0 +1,69 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+{% include 'Layout/favicon.html.twig' %}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+  crossorigin="anonymous">
+
+{% spaceless -%}
+    {# stylesheets #}
+    {# add global stylesheets and scripts outside of any block to add them to the helpers before any others assets are added #}
+    {# we use the view helper to have cache buster functionality #}
+    {% do pimcore_head_link().appendStylesheet(asset('static/css/shards.min.css?version=2.0.1')) %}
+    {% do pimcore_head_link().appendStylesheet(asset('static/css/shards-extras.min.css?version=2.0.1')) %}
+    {# do pimcore_head_link().appendStylesheet(asset('static/lib/video-js/video-js.min.css'), 'screen') %}
+    {% do pimcore_head_link().appendStylesheet(asset('static/lib/magnific/magnific.css'), 'screen') %}
+    {% do pimcore_head_link().appendStylesheet(asset('static/css/print.css'), 'print') #}
+
+    {% if editmode %}
+      {% do pimcore_head_link().appendStylesheet(asset('static/css/editmode.css')) %}
+    {% endif %}
+
+    {# scripts #}
+    {% do pimcore_head_script().appendFile(asset('static/js/shards.min.js')) %}
+    {% do pimcore_head_script().appendFile(asset('static/js/demo.min.js')) %}
+    {# do pimcore_head_script().appendFile(asset('static/lib/magnific/magnific.js')) %}
+    {% do pimcore_head_script().appendFile(asset('static/lib/video-js/video.js')) %}
+    {% do pimcore_head_script().appendFile(asset('static/js/srcset-polyfill.min.js')) #}
+
+    {# set document if not defined #}
+    {% if not document is defined or not document %}
+        {% set document = pimcore_document(1) %}
+    {% endif %}
+
+    {% if document is instanceof('\\Pimcore\\Model\\Document\\Link') %}
+        {# @var document \Pimcore\Model\Document\Link #}
+        {% set document = document.getObject() %}
+    {% endif %}
+
+    {# head title #}
+    {% if document.getTitle() is not empty %}
+        {% do pimcore_head_title().set(document.getTitle()) %}
+    {% endif %}
+
+    {# if pimcore_website_config('name') is not empty #}
+        {# do pimcore_head_title().append(pimcore_website_config('name')) %}
+        {% do pimcore_head_title().setSeparator(' | ') #}
+        {% do pimcore_head_title().append('Wimmer GmbH') %}
+        {% do pimcore_head_title().setSeparator(' – ') %}
+
+    {# endif #}
+
+    {# head description #}
+    {% if document.getDescription() is not empty %}
+        {% do pimcore_head_meta().setDescription(document.getDescription()) %}
+    {% endif %}
+{%- endspaceless %}
+
+{% block layout_head_meta deferred %}
+    {{ pimcore_head_title() }}
+    {{ pimcore_head_meta() }}
+{% endblock %}
+
+{% block head_stylesheets deferred %}
+    {{ pimcore_head_link() }}
+{% endblock %}

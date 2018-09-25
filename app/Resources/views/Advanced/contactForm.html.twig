@@ -1,0 +1,82 @@
+{% extends 'layout_new.html.twig' %}
+
+{% block content %}
+
+    {% if not success %}
+
+        {# see comment on objectForm template regarding the form theme #}
+        {% form_theme form 'Form/default.html.twig' %}
+
+        {{ form_start(form, {
+            attr: {
+                class: 'form-contact-full',
+                role: 'form'
+            }
+        }) }}
+
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_row(form.gender) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.firstname) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.lastname) }}
+            </div>
+        </div>
+        <div class="row">      
+            <div class="col-md-6">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.company) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h4>{{ form.message.vars['label'] }}</h4>
+
+                    {{ form_widget(form.message, {
+                        attr: {
+                            style: 'height: 300px',
+                            class: 'form-control'
+                        }
+                    }) }}
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-md-12 form-group">
+                {{ form_widget(form.submit, {
+                    attr: {
+                        class: 'btn-primary btn'
+                    }
+                }) }}
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    {% else %}
+
+        <h2>{{ "Vielen Dank für Ihre Anfrage!"|trans }}</h2>
+        <p>
+            Wir haben folgende Informationen an unsere Mitarbeiter weitergeleitet:
+            <br/>
+            <br/>
+            <b>Vorname: </b> {{ firstname }}<br/>
+            <b>Nachname: </b> {{ lastname }}<br/>
+            <b>Firma: </b> {{ company }}<br/>
+            <b>E-Mail: </b> {{ email }}<br/>
+            <br/>
+            <b>Nachricht: </b> {{ message }}<br/>
+        </p>
+
+    {% endif %}
+
+{% endblock %}

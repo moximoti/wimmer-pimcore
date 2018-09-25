@@ -1,0 +1,9 @@
+{% if editmode %}
+<div class="lead">
+{% endif %}
+    <p class="lead">
+        {{ pimcore_textarea('leadtext') }}
+    </p>
+{% if editmode %}
+</div>
+{% endif %}

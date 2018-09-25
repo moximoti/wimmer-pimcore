@@ -1,0 +1,39 @@
+{# Navigation #}
+{% set navStartNode = document.getProperty('navStartNode') %}
+{% if navStartNode is empty %}
+  {% set navStartNode = pimcore_document(1) %}
+{% endif %}
+
+{# dynamic HeaderImage #}
+{% set headerImage = document.getProperty('headerImage') %}
+{% set headerSize = document.getProperty('headerSize') %}
+{% set headlineVisible = document.getProperty('headlineVisible') %}
+
+{% if headerSize is empty or 'min' %}
+  {% set thumbnailSize = 'headerCover' %}
+{% elseif headerSize == '70vh' or headerSize == '100vh' %}
+  {% set thumbnailSize = 'headerCoverFull' %}
+{% endif %}
+
+
+<nav class="navbar navbar-expand-md navbar-wim navbar-light bg-white">
+  {# Navigation #}
+  {% include 'Navigation/navbar.html.twig' %}
+</nav>
+
+<div class="wim-head d-flex justify-content-center flex-column" 
+{% if not headerImage is empty %} 
+  style="background-image: url('{{ headerImage.getThumbnail(thumbnailSize) }}'); background-size: 100% auto; " 
+{% endif %}>
+
+{% if headlineVisible is empty or headlineVisible %} 
+  <div class="inner-wrapper container">
+    <div class="row">
+      <div class="col-md-9 mb-5 mt-5">
+        <h1 class="welcome-heading display-4 text-white">{{ document.getTitle() }}</h1>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+</div>

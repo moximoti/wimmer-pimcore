@@ -1,0 +1,55 @@
+{% set navigation = pimcore_build_nav(document, navStartNode) %}
+{% set menuRenderer = pimcore_nav_renderer('menu') %}
+
+<div class="container">
+  <a class="navbar-brand" href="/">
+    <img class="wim-logo wim-logo-dark" src="{{ asset('static/images/wimmerlogo_Version_ok.svg') }}" alt="Wimmer Logo">
+    <img class="wim-logo wim-logo-light" src="{{ asset('static/images/wimmerlogo_Version_ok_neg.svg') }}" alt="Wimmer Logo">
+  </a>
+  <div class="navbar-burger burger navbar-toggler ml-auto" data-toggle="collapse" data-target="#navbarNavDropdown-7"
+  aria-controls="navbarNavDropdown-7" aria-expanded="false" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown-7">
+  
+  {# Navigation Start #}
+
+  <ul class="navbar-nav wim-dropdowns">
+    {# <li class="nav-item" style="display: none"><a class="nav-link" href="#">Home</a></li> #}
+    {% for page in navigation %}
+      {% if (page.isVisible and menuRenderer.accept(page)) %}
+        {% if not page.hasPages %}
+
+          <li class="nav-item {# page.isActive(true) ? 'active' #}">
+            <a class="nav-link" href="{{ page.href }}">{{ page.label }}</a>
+          </li>
+
+        {% else %}
+
+          <li class="nav-item dropdown {# page.isActive(true) ? 'active' #}">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ page.label }}</a>
+            <div class="dropdown-menu dropdown-menu-right">
+
+            {% for child in page.pages %}
+              {% if (child.isVisible and menuRenderer.accept(child)) %}
+                <a class="dropdown-item {# child.isActive(true) ? 'active' #}" href="{{ child.href }}" target="{{ child.target }}">
+                  {{ child.label }}
+                </a>
+              {% endif %}
+            {% endfor %}
+
+            </div>
+          </li>
+        
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+  </ul>
+
+  {# Navigation End #}
+
+  </div>
+</div>

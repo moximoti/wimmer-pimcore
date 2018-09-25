@@ -1,0 +1,22 @@
+{% set breadcrumbsNavigation = pimcore_build_nav(document, pimcore_document(1)) %}
+{% set menuRenderer = pimcore_nav_renderer('breadcrumbs') %}
+
+<nav class="nav-breadcrumb small" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/"><i class="fa fa-home mr-2"></i>{{ "Home"|trans }}</a></li>
+      {% for page in breadcrumbsNavigation %}
+        {% if (page.isVisible and menuRenderer.accept(page) and page.isActive(true)) %}
+          <li class="breadcrumb-item"><a href="{{ page.href }}">{{ page.label }}</a></li>
+          {% if page.hasPages %}
+            {% for child in page.pages %}
+              {% if (child.isVisible and menuRenderer.accept(child) and child.isActive(true)) %}
+                <li class="breadcrumb-item"><a href="{{ child.href }}">{{ child.label }}</a></li>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </ol>
+  </div>
+</nav>

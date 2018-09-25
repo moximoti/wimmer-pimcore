@@ -1,0 +1,14 @@
+{% extends 'layout_new.html.twig' %}
+
+{% block content %}
+
+				{#<h2>{{ pimcore_input('headline') }}</h2>#}
+				{#% for i in pimcore_iterate_block(pimcore_block('contentblock')) %#}
+					{#<p class="lead">{{ pimcore_input('subline') }}</p>
+					{{ pimcore_wysiwyg('content') }}#}
+					{# pimcore_areablock('content', {allowed: ['section']}) #}
+					{{ pimcore_areablock('content') }}
+				{#% endfor %#}
+
+{% endblock %}
+
