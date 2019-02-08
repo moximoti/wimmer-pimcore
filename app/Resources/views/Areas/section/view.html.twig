@@ -1,11 +1,28 @@
-{# include('Includes/area-headlines.html.twig') #}
-      <section class="{#section-invert#} py-4">
-        <div class="container">
-          <div class="row justify-content-between">
-            <div class="col col-lg-9 mx-auto">
-                {{ pimcore_areablock('section_content') }}
-            </div>
-          </div>
-        </div>
-      </section>
+{% set backgroundSelect = pimcore_select('background', {
+    reload: true,
+    store: [["","none"], ["section-invert","grey"]]
+}) %}
+{# set backgroundSelect = pimcore_select('background', {
+    reload: true,
+    store: [["none",""], ["grey","section-invert"]]
+}) #}
+{% set background = backgroundSelect.getData() %}
+
+<section class="{{ background }} py-4">
+{% if editmode %}
+
+    <div class="editmode-label">
+        <label>Hintergrund:</label>
+        {{ backgroundSelect|raw }}
+    </div>
+
+{% endif %}
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col col-lg-9 mx-auto">
+          {{ pimcore_areablock('section_content') }}
+      </div>
+    </div>
+  </div>
+</section>
 

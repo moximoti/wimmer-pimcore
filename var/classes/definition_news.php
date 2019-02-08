@@ -1,10 +1,10 @@
 <?php 
 
 /** 
-* Generated at: 2018-09-21T20:49:55+02:00
+* Generated at: 2019-02-08T17:52:06+01:00
 * Inheritance: no
 * Variants: no
-* IP: 192.168.10.1
+* Changed by: system (0)
 
 
 Fields Summary: 
@@ -15,22 +15,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'id' => '1',
    'name' => 'news',
    'description' => NULL,
-   'creationDate' => NULL,
-   'modificationDate' => 1537555795,
+   'creationDate' => 0,
+   'modificationDate' => 1549644726,
    'userOwner' => 2,
-   'userModification' => NULL,
+   'userModification' => 0,
    'parentClass' => NULL,
-   'listingParentClass' => NULL,
-   'useTraits' => NULL,
-   'listingUseTraits' => NULL,
+   'listingParentClass' => '',
+   'useTraits' => '',
+   'listingUseTraits' => '',
    'allowInherit' => false,
-   'allowVariants' => false,
+   'allowVariants' => NULL,
    'showVariants' => false,
    'layoutDefinitions' => NULL,
    'icon' => NULL,
    'previewUrl' => NULL,
    'group' => NULL,
-   'showAppLoggerTab' => NULL,
+   'showAppLoggerTab' => false,
    'linkGeneratorReference' => NULL,
    'propertyVisibility' => 
   array (

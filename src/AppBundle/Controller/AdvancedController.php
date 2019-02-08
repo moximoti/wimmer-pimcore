@@ -20,8 +20,6 @@ class AdvancedController extends FrontendController
     {
         $success = false;
 
-        $contactFormModel = new ContactFormModel();
-
         // initialize form and handle request data
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
@@ -31,7 +29,6 @@ class AdvancedController extends FrontendController
             $success = true;
 
             $data = $form->getData();
-            $contactFormModel = $form->getData();
 
             $mail = new Mail();
             $mail->setIgnoreDebugMode(true);
@@ -45,11 +42,11 @@ class AdvancedController extends FrontendController
             }
 
             $mail->setDocument($emailDocument);
-            $mail->setParams($contactFormModel);
+            $mail->setParams($data);
             $mail->send();
 
             // add form data as view parameters
-            $this->view->getParameters()->add($contactFormModel);
+            $this->view->getParameters()->add($data);
         }
 
         $this->view->success = $success;

@@ -9,9 +9,10 @@
   "require": {
     "php": ">=7.1",
     "wikimedia/composer-merge-plugin": "^1.4",
-    "pimcore/pimcore": "~5.4.0",
-    "dachcom-digital/formbuilder" : "~2.4.0",
-    "dachcom-digital/members" : "~2.1.0"
+    "pimcore/pimcore": "~5.4",
+    "dachcom-digital/formbuilder" : "~2.4",
+    "dachcom-digital/members" : "~2.1",
+    "dachcom-digital/toolbox" : "~2.4"
   },
   "require-dev": {
     "cache/integration-tests": "^0.16.0",

@@ -1,0 +1,3 @@
+$(function () {
+  $('.toolbox-googlemap').toolboxGoogleMaps({});
+});

@@ -1,0 +1,50 @@
+{% extends 'layout_new.html.twig' %}
+
+{% block content %}
+    {# include('Includes/content-default.html.twig') #}
+
+    <section class="contact section-invert py-4">
+
+        <!-- Features -->
+        <div class="container pb-5">
+            <h3 class="section-title text-center my-5">Stellenangebote</h3>
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover align-items-center table-borderless">
+                        <thead>
+                        <tbody>
+                        {% for jobOffer in jobs %}
+                        {% set detailLink = path('jobs', {
+                            id: jobOffer.id,
+                            prefix: document.fullPath
+                        }) %}
+                            <tr class="bg-white">
+                                <th scope="row">
+                                    <div class="media align-items-center">
+                                        <i class="fa fa-suitcase fa-3x avatar d-none d-sm-table-cell" aria-hidden="true"></i>
+                                        <div class="media-body">
+                                            <span class="h6 mb-0"><a href="{{ detailLink }}">{{ jobOffer.Jobtitel }}</a>
+                                            {% set jobBeginDate = jobOffer.Beginn|date('d.m.Y') %}
+                                            {% if jobOffer.Beginn <= jobOffer.Datum %}
+                                                {% set jobBeginDate = "ab sofort!"|trans %}
+                                            {% endif %}
+                                                <span class="badge badge-primary ml-1">{{ jobBeginDate }}</span>
+                                            </span>
+                                            <span class="text-muted">{{ jobOffer.Untertitel }}</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="d-none d-sm-table-cell">{{ jobOffer.Umfang }}</td>
+                                <td class="text-nowrap"><i class="fa fa-map-marker mr-1" aria-hidden="true"></i>{{ jobOffer.Einsatzort }}</td>
+                            </tr>
+                            <tr class="table-divider"></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      </section>
+
+
+{% endblock %}

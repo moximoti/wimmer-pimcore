@@ -13,17 +13,17 @@
 
       {% include 'Navigation/breadcrumb.html.twig' %}
 
-      <section {# class="section-invert py-4" #} >
+      {# <section { class="section-invert py-4" } >
         <div class="container">
           <div class="row justify-content-between">
-            <div class="col col-lg-9 mx-auto">
+            <div class="col col-lg-9 mx-auto"> #}
 
                 {{ block('content') }}
 
-            </div>
+            {#</div>
           </div>
         </div>
-      </section>
+      </section>#}
 
     </div>
   </div>
@@ -45,6 +45,8 @@
     crossorigin="anonymous"></script>
   <script src="{{ asset('static/js/shards.min.js') }}"></script>
   <script src="{{ asset('static/js/demo.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/toolbox/js/frontend/plugins/jquery.tb.ext.google-maps.js') }}"></script>
+  <script src="{{ asset('static/js/toolbox.js') }}"></script>
 
 </body>
 </html>

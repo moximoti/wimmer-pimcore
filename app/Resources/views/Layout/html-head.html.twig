@@ -26,6 +26,9 @@
     {# scripts #}
     {% do pimcore_head_script().appendFile(asset('static/js/shards.min.js')) %}
     {% do pimcore_head_script().appendFile(asset('static/js/demo.min.js')) %}
+    {# do pimcore_head_script().appendFile(asset('bundles/toolbox/js/frontend/plugins/jquery.tb.ext.google-maps.js')) #}
+    {# do pimcore_head_script().appendFile(asset('static/js/toolbox.js')) #}
+
     {# do pimcore_head_script().appendFile(asset('static/lib/magnific/magnific.js')) %}
     {% do pimcore_head_script().appendFile(asset('static/lib/video-js/video.js')) %}
     {% do pimcore_head_script().appendFile(asset('static/js/srcset-polyfill.min.js')) #}
