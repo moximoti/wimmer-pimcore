@@ -60,3 +60,4 @@ nbproject
 /tools/
 /website/
 .temp
+.DS_Store

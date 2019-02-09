@@ -16,6 +16,7 @@ use Zend\Paginator\Paginator;
 
 class AdvancedController extends FrontendController
 {
+    
     public function contactFormAction(Request $request)
     {
         $success = false;

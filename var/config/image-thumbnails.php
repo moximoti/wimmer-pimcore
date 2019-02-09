@@ -55,7 +55,7 @@ return [
         "preserveMetaData" => FALSE,
         "rasterizeSVG" => FALSE,
         "downloadable" => FALSE,
-        "modificationDate" => 1537017149,
+        "modificationDate" => 1549659054,
         "creationDate" => 1537017091,
         "id" => "headerCoverFull"
     ]

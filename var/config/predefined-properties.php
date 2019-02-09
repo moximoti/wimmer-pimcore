@@ -10,9 +10,9 @@ return [
         "data" => "",
         "config" => "",
         "ctype" => "document",
-        "inheritable" => TRUE,
+        "inheritable" => FALSE,
         "creationDate" => 1536935744,
-        "modificationDate" => 1536938939
+        "modificationDate" => 1549667533
     ],
     3 => [
         "id" => 3,
@@ -23,22 +23,22 @@ return [
         "data" => NULL,
         "config" => "min,70vh,100vh",
         "ctype" => "document",
-        "inheritable" => TRUE,
+        "inheritable" => FALSE,
         "creationDate" => 1536943653,
-        "modificationDate" => 1536947180
+        "modificationDate" => 1549667534
     ],
     4 => [
         "id" => 4,
-        "name" => "Headline Visible",
-        "description" => NULL,
-        "key" => "headlineVisible",
+        "name" => "Disable Headline",
+        "description" => "",
+        "key" => "disableHeadline",
         "type" => "bool",
-        "data" => "1",
+        "data" => "",
         "config" => "",
         "ctype" => "document",
-        "inheritable" => TRUE,
+        "inheritable" => FALSE,
         "creationDate" => 1536943748,
-        "modificationDate" => 1536943815
+        "modificationDate" => 1549659579
     ],
     5 => [
         "id" => 5,
@@ -47,11 +47,11 @@ return [
         "key" => "mail_disable_default_mail_body",
         "type" => "bool",
         "data" => NULL,
-        "config" => NULL,
+        "config" => "",
         "ctype" => "document",
         "inheritable" => FALSE,
         "creationDate" => 1537393052,
-        "modificationDate" => 1537393052
+        "modificationDate" => 1549659201
     ],
     6 => [
         "id" => 6,

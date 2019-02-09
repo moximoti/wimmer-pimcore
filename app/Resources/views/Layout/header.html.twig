@@ -7,26 +7,36 @@
 {# dynamic HeaderImage #}
 {% set headerImage = document.getProperty('headerImage') %}
 {% set headerSize = document.getProperty('headerSize') %}
-{% set headlineVisible = document.getProperty('headlineVisible') %}
+{% set disableHeadline = document.getProperty('disableHeadline') %}
 
-{% if headerSize is empty or 'min' %}
+{% if headerSize is empty or headerSize == 'min' %}
   {% set thumbnailSize = 'headerCover' %}
-{% elseif headerSize == '70vh' or headerSize == '100vh' %}
+{% endif %}
+{% if headerSize == '70vh' or headerSize == '100vh' %}
   {% set thumbnailSize = 'headerCoverFull' %}
 {% endif %}
-
 
 <nav class="navbar navbar-expand-md navbar-wim navbar-light bg-white">
   {# Navigation #}
   {% include 'Navigation/navbar.html.twig' %}
 </nav>
 
-<div class="wim-head d-flex justify-content-center flex-column" 
-{% if not headerImage is empty %} 
-  style="background-image: url('{{ headerImage.getThumbnail(thumbnailSize) }}'); background-size: 100% auto; " 
-{% endif %}>
 
-{% if headlineVisible is empty or headlineVisible %} 
+{% if headerImage is not empty %}
+  {% if headerSize == '70vh' or headerSize == '100vh' %} 
+    <div class="wim-head welcome d-flex justify-content-center flex-column" style="background-image: url('{{ headerImage.getThumbnail(thumbnailSize) }}'); background-size: cover; height: {{ headerSize }}; min-height: 400px;" >
+  {% else %}
+    <div class="wim-head d-flex justify-content-center flex-column" style="background-image: url('{{ headerImage.getThumbnail(thumbnailSize) }}'); background-size: cover;" >
+  {% endif %}
+{% else %}
+  {% if headerSize == '70vh' or headerSize == '100vh' %}
+    <div class="wim-head welcome d-flex justify-content-center flex-column" style="height: {{ headerSize }}; min-height: 400px;">
+  {% else %}
+    <div class="wim-head d-flex justify-content-center flex-column" >
+  {% endif %}
+{% endif %}
+
+{% if not disableHeadline %}
   <div class="inner-wrapper container">
     <div class="row">
       <div class="col-md-9 mb-5 mt-5">
