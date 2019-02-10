@@ -72,6 +72,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bootstrap_datepicker__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_bootstrap_datepicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_bootstrap_datepicker__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sliderPlugin__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lightbox__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lightbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__lightbox__);
+
+
+//import photoswipe from 'photoswipe';
+//import * as PhotoSwipe from 'photoswipe';
+//import * as PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 
 
 
@@ -81,7 +88,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * Datepicker for Bootstrap v1.7.1 (https://github.com/uxsolutions/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.8.0 (https://github.com/uxsolutions/bootstrap-datepicker)
  *
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
@@ -1226,10 +1233,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				nextIsDisabled,
 				factor = 1;
 			switch (this.viewMode){
-				case 0:
-					prevIsDisabled = year <= startYear && month <= startMonth;
-					nextIsDisabled = year >= endYear && month >= endMonth;
-					break;
 				case 4:
 					factor *= 10;
 					/* falls through */
@@ -1240,8 +1243,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 					factor *= 10;
 					/* falls through */
 				case 1:
-					prevIsDisabled = Math.floor(year / factor) * factor <= startYear;
-					nextIsDisabled = Math.floor(year / factor) * factor + factor >= endYear;
+					prevIsDisabled = Math.floor(year / factor) * factor < startYear;
+					nextIsDisabled = Math.floor(year / factor) * factor + factor > endYear;
+					break;
+				case 0:
+					prevIsDisabled = year <= startYear && month < startMonth;
+					nextIsDisabled = year >= endYear && month > endMonth;
 					break;
 			}
 
@@ -1615,6 +1622,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			});
 			$.each(this.pickers, function(i, p){
 				p.setRange(range);
+			});
+		},
+		clearDates: function(){
+			$.each(this.pickers, function(i, p){
+				p.clearDates();
 			});
 		},
 		dateUpdated: function(e){
@@ -2083,7 +2095,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.7.1';
+	$.fn.datepicker.version = '1.8.0';
 
 	$.fn.datepicker.deprecated = function(msg){
 		var console = window.console;
@@ -4506,6 +4518,61 @@ function closure ( target, options, originalOptions ){
 	};
 
 }));
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+(function($) {
+  var $pswp = $('.pswp')[0];
+  var image = [];
+
+  $('.picture').each( function() {
+      var $pic     = $(this),
+          getItems = function() {
+              var items = [];
+              $pic.find('a').each(function() {
+                  var $href   = $(this).attr('href'),
+                      $size   = $(this).data('size').split('x'),
+                      $width  = $size[0],
+                      $height = $size[1];
+
+                  var item = {
+                      src : $href,
+                      w   : $width,
+                      h   : $height
+                  }
+
+                  items.push(item);
+              });
+              return items;
+          }
+
+      var items = getItems();
+
+      $.each(items, function(index, value) {
+          image[index]     = new Image();
+          image[index].src = value['src'];
+      });
+
+      $pic.on('click', 'figure', function(event) {
+          event.preventDefault();
+          
+          var $index = $(this).parent('div').index();
+          var options = {
+              index: $index,
+              bgOpacity: 0.7,
+              showHideOpacity: true,
+              shareEl: false,
+          }
+
+          var lightBox = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
+          lightBox.init();
+      });
+  });
+})(jQuery);
+
+
 
 /***/ })
 /******/ ]);

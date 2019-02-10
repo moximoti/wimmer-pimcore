@@ -1,20 +1,136 @@
 {% extends 'layout_new.html.twig' %}
 
+{% do pimcore_head_script().appendFile(asset('static/js/photoswipe.js')) %}
+{% do pimcore_head_script().appendFile(asset('static/js/photoswipe-ui-default.js')) %}
+{% do pimcore_head_link().appendStylesheet(asset('static/css/photoswipe.css')) %}
+{% do pimcore_head_link().appendStylesheet(asset('static/css/default-skin/default-skin.css')) %}
+
 {% block content %}
-			{% set headline = pimcore_input('headline') %}
-			{% if editmode %}
-				<h2>{{ headline|raw }}</h2>
-			{% endif %}
-			{% if headline is not empty and not editmode %}
-				<h2>{{ headline|raw }}</h2>
-			{% endif %}
 
-				{% for i in pimcore_iterate_block(pimcore_block('contentblock')) %}
-					<p class="lead">{{ pimcore_input('subline') }}</p>
-					{{ pimcore_wysiwyg('content') }}
-					{# pimcore_areablock('content', {allowed: ['section']}) #}
-					{# pimcore_areablock('content') #}
-				{% endfor %}
+    {% if editmode %}
+        <div class="alert alert-info">
+            Specify the parent folder here (default is home)
+            {{ pimcore_href('parentFolder') }}
+        </div>
+    {% endif %}
 
-{% endblock %}
+    <div class="row picture" id="gallery">
+        {% set thumbnailOptions = {
+            width: 180,
+            height: 180,
+            cover: true
+        } %}
+
+        {% for asset in list %}
+            {# @var asset \Pimcore\Model\Asset #}
+
+            {% if asset.getType() in ['video', 'image'] %}
+
+              <div class="col-3" itemscope="" itemtype="http://schema.org/ImageGallery">
+                <figure itemprop="associatedMedia" itemscope="contentUrl" itemtype="http://schema.org/ImageObject">
+                  <a href="{{ asset.getFullpath() }}" itemprop="thumbnail" data-size="{{ asset.getWidth() }}x{{ asset.getHeight() }}" >
+                    {% if asset is instanceof('\\Pimcore\\Model\\Asset\\Image') %}
+
+                        {{ asset.getThumbnail(thumbnailOptions).getHTML({ class: 'img-thumbnail' })|raw }}
+
+                    {% else %}
+
+                        {% set thumbnail = asset.getImageThumbnail(thumbnailOptions) %}
+                        <img src="{{ thumbnail|raw }}" class="thumbnail" width="180" height="180">
+
+                    {% endif %}
+                  </a>
+                </figure>
+              </div>
+
+                {#
+                <div class="col-xs-3" style="padding-bottom: 10px">
+
+                    {% if asset is instanceof('\\Pimcore\\Model\\Asset\\Image') %}
+
+                        {{ asset.getThumbnail(thumbnailOptions).getHTML({ class: 'thumbnail' })|raw }}
+
+                    {% else %}
+
+                        {% set thumbnail = asset.getImageThumbnail(thumbnailOptions) %}
+                        <img src="{{ thumbnail|raw }}" class="thumbnail" width="180" height="180">
+
+                    {% endif %}
+
+                </div>
+                #}
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+
+  	<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+  <!-- Background of PhotoSwipe. 
+       It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg"></div>
+
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+
+      <!-- Container that holds slides. 
+          PhotoSwipe keeps only 3 of them in the DOM to save memory.
+          Don't modify these 3 pswp__item elements, data is added later on. -->
+      <div class="pswp__container">
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+
+          <div class="pswp__top-bar">
+
+              <!--  Controls are self-explanatory. Order can be changed. -->
+
+              <div class="pswp__counter"></div>
+
+              <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+              <button class="pswp__button pswp__button--share" title="Share"></button>
+
+              <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+              <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+              <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+              <!-- element will get class pswp__preloader--active when preloader is running -->
+              <div class="pswp__preloader">
+                  <div class="pswp__preloader__icn">
+                    <div class="pswp__preloader__cut">
+                      <div class="pswp__preloader__donut"></div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+              <div class="pswp__share-tooltip"></div> 
+          </div>
+
+          <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+          </button>
+
+          <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+          </button>
+
+          <div class="pswp__caption">
+              <div class="pswp__caption__center"></div>
+          </div>
+
+      </div>
+
+  </div>
+
+</div>
+
+  {% endblock %}
 
