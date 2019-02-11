@@ -6,6 +6,10 @@
 {% do pimcore_head_link().appendStylesheet(asset('static/css/default-skin/default-skin.css')) %}
 
 {% block content %}
+    <section class="">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col col-lg-9 mx-auto">
 
     {% if editmode %}
         <div class="alert alert-info">
@@ -16,8 +20,8 @@
 
     <div class="row picture" id="gallery">
         {% set thumbnailOptions = {
-            width: 180,
-            height: 180,
+            width: 240,
+            height: 240,
             cover: true
         } %}
 
@@ -26,7 +30,7 @@
 
             {% if asset.getType() in ['video', 'image'] %}
 
-              <div class="col-3" itemscope="" itemtype="http://schema.org/ImageGallery">
+              <div class="col-6 col-md-3" itemscope="" itemtype="http://schema.org/ImageGallery">
                 <figure itemprop="associatedMedia" itemscope="contentUrl" itemtype="http://schema.org/ImageObject">
                   <a href="{{ asset.getFullpath() }}" itemprop="thumbnail" data-size="{{ asset.getWidth() }}x{{ asset.getHeight() }}" >
                     {% if asset is instanceof('\\Pimcore\\Model\\Asset\\Image') %}
@@ -63,6 +67,11 @@
         {% endfor %}
 
     </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
 
 
   	<!-- Root element of PhotoSwipe. Must have class pswp. -->

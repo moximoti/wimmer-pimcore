@@ -2,7 +2,19 @@
 
 {% block content %}
     {# include('Includes/content-default.html.twig') #}
-
+    <section class="section py-4">
+        <div class="container mt-5">
+          <div class="row justify-content-between">
+            <div class="col-lg-9 ml-auto mr-auto lead">
+              <p class="">
+                  {{ pimcore_textarea('lead') }}
+              </p>
+            </div>
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>    
     <section class="contact section-invert py-4">
 
         <!-- Features -->
