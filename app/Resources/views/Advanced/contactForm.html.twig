@@ -1,7 +1,25 @@
 {% extends 'layout_new.html.twig' %}
 
+{% block header %}
+    {% include 'Layout/map-header.html.twig' %}
+{% endblock %}
+
 {% block content %}
-    <section class="">
+        <section class="section py-4">
+        <div class="container mt-5">
+          <div class="row justify-content-between">
+            <div class="col-lg-9 ml-auto mr-auto lead">
+              <p class="">
+                  {{ pimcore_textarea('lead') }}
+              </p>
+            </div>
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>    
+
+    <section class="py-4 section-invert">
       <div class="container">
         <div class="row justify-content-between">
           <div class="col col-lg-9 mx-auto">

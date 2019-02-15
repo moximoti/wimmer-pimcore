@@ -1,0 +1,32 @@
+{# Navigation #}
+{% set navStartNode = document.getProperty('navStartNode') %}
+{% if navStartNode is empty %}
+  {% set navStartNode = pimcore_document(1) %}
+{% endif %}
+
+{# dynamic HeaderImage #}
+{% set headerImage = document.getProperty('headerImage') %}
+{% set headerSize = document.getProperty('headerSize') %}
+{% set disableHeadline = document.getProperty('disableHeadline') %}
+
+{% if headerSize is empty or headerSize == 'min' %}
+  {% set thumbnailSize = 'headerCover' %}
+{% endif %}
+{% if headerSize == '70vh' or headerSize == '100vh' %}
+  {% set thumbnailSize = 'headerCoverFull' %}
+{% endif %}
+
+<nav class="navbar navbar-expand-md navbar-wim navbar-light bg-white">
+  {# Navigation #}
+  {% include 'Navigation/navbar.html.twig' %}
+</nav>
+
+
+{% if headerImage is not empty %}
+    <div class="wim-head fullscreen d-flex justify-content-center flex-column no-overlay" style="background-image: url('{{ headerImage.getThumbnail(thumbnailSize) }}')" >
+{% else %}
+    <div class="wim-head fullscreen d-flex justify-content-center flex-column no-overlay" >
+      <!--<img class="cover" src="images/_MG_6440_web.jpg">-->
+{% endif %}
+
+</div>

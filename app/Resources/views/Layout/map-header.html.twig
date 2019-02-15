@@ -1,0 +1,64 @@
+{# Navigation #}
+{% set navStartNode = document.getProperty('navStartNode') %}
+{% if navStartNode is empty %}
+  {% set navStartNode = pimcore_document(1) %}
+{% endif %}
+
+<nav class="navbar navbar-expand-md navbar-wim navbar-light bg-white">
+  {# Navigation #}
+  {% include 'Navigation/navbar.html.twig' %}
+</nav>
+
+<div id="wim-gmap" class="wim-head welcome wim-head-map d-flex justify-content-center flex-column">
+</div>
+
+<script>
+  // Initialize and add the map
+  function initMap() {
+    // The location of Uluru
+    var wimmer = {lat: 49.076093, lng: 9.293783};
+    var center = {lat: 49.078093, lng: 9.293783};
+    var calculateRoute = "https://www.google.com/maps/dir/?api=1&destination=Wimmer+Gmbh+Abstatt";
+    // The map, centered at Uluru
+    var map = new google.maps.Map(
+        document.getElementById('wim-gmap'), {
+          mapTypeId: 'satellite',
+          zoom: 16, 
+          center: center,
+          mapTypeControl: false,
+          streetViewControl: false,
+          fullscreenControl: false
+        });
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({
+      title: "Wimmer GmbH",
+      position: wimmer, 
+      map: map
+    });
+    var contentString = '<div id="content">'+
+          '<h4 id="firstHeading" class="firstHeading">Wimmer GmbH</h4>'+
+          '<div id="bodyContent" class="map-body">'+
+          '<span class="map-body">Carl-Berberich-Straße 4<br> 74232 Abstatt<br><br>'+
+          'Tel: <a href="tel:+497062978810">+49 (0)7062/97881-0 </a><br><br>'+
+          '<a target="_blank" href="'+ calculateRoute +'">'+
+          'Route berechnen</a><br></span>'+
+          '</div>'+
+          '</div>';
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+    infowindow.open(map, marker);
+  }
+</script>
+<!--Load the API from the specified URL
+* The async attribute allows the browser to render the page while the API loads
+* The key parameter will contain your own API key (which is not needed for this tutorial)
+* The callback parameter executes the initMap() function
+-->
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-6fT2Hc3clMPicQTS7FudMQAOE4jy7Eo&callback=initMap">
+</script>
+

@@ -9,21 +9,11 @@
       </div>
       <div class="col-md-8 text-center order-md-last text-md-right">
         <ul class="list-inline mb-2 mb-md-0">
+          {% for i in pimcore_iterate_block(pimcore_block('footer')) %}
           <li class="list-inline-item ">
-            <a class="text-light" href="https://cdn.website-editor.net/73169e5d5b43491ebdf795c67806a7ef/files/uploaded/AGB_A4_Spalten_ZW_v3_cmyk.pdf">
-              <span>AGB's</span>
-            </a>
+            {{pimcore_link('footerItem', {'class': "text-light"})}}
           </li>
-          <li class="list-inline-item ">
-            <a class="text-light" href="/datenschutz.html">
-              <span>Datenschutz</span>
-            </a>
-          </li>
-          <li class="list-inline-item ">
-            <a class="text-light" href="/impressum.html">
-              <span>Impressum</span>
-            </a>
-          </li>
+          {% endfor %}
         </ul>
       </div>
       <div class="col-md-3 text-center text-md-left">

@@ -132,6 +132,10 @@ a:focus {
   background: #212529;
 }
 
+.wimmer-main .wim-head.welcome .map-body {
+  text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
 .wimmer-main .wim-head.fullscreen {
   height: calc(100vh - 108px);
 }
@@ -297,6 +301,12 @@ a:focus {
   padding: 0.2em;
   color: #273C81;
   opacity: 0.3;
+}
+
+.wimmer-main #wim-gmap #content {
+  padding: 6px;
+  padding-bottom: 8px;
+  padding-top: 0px;
 }
 
 .shards-app-promo-page--1 .welcome {

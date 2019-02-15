@@ -43,14 +43,15 @@ class WidefaultController extends FrontendController
         $this->view->list = $list;
     }
 
+    public function startpageAction(Request $request)
+    {
+    	// Fest konfigurierte Startseite. Bild muss austauschbar sein, kann evtl auch Video sein.
+    }
+
     /*
     public function customAction(Request $request)
     {
     	// Frei zusammenbaubar mit Inhaltsmodulen
-    }
-    public function startpageAction(Request $request)
-    {
-    	// Fest konfigurierte Startseite. Bild muss austauschbar sein, kann evtl auch Video sein.
     }
     public function mapAction(Request $request)
     {

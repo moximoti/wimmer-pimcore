@@ -5,6 +5,10 @@
 {% do pimcore_head_link().appendStylesheet(asset('static/css/photoswipe.css')) %}
 {% do pimcore_head_link().appendStylesheet(asset('static/css/default-skin/default-skin.css')) %}
 
+{% block header %}
+	{% include 'Layout/header.html.twig' %}
+{% endblock %}
+
 {% block content %}
     <section class="">
       <div class="container">

@@ -7,12 +7,12 @@
   <div class="wim-wrapper">
 
     {# page header #}
-    {% include 'Layout/header.html.twig' %}
+    {{block('header')}}
 
     <div class="main-container">
-
+    {% if not disableBreadcrumbs|default(false) %}
       {% include 'Navigation/breadcrumb.html.twig' %}
-
+    {% endif %}
 
       {{ block('content') }}
 
@@ -21,7 +21,9 @@
   </div>
 
   {# page footer #}
-  {% include 'Layout/footer.html.twig' %}
+  {# pimcore_inc('/' ~ app.request.locale ~ '/shared/includes/footer') #}
+  {{ pimcore_inc('/footer') }}
+  {# include 'Layout/footer.html.twig' #}
 
 
   {# output scripts added before #}

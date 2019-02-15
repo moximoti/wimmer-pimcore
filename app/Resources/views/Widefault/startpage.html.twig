@@ -1,20 +1,11 @@
 {% extends 'layout_new.html.twig' %}
 
+{% set disableBreadcrumbs = true %}
+
+{% block header %}
+	{% include 'Layout/startpage-header.html.twig' %}
+{% endblock %}
+
 {% block content %}
-			{% set headline = pimcore_input('headline') %}
-			{% if editmode %}
-				<h2>{{ headline|raw }}</h2>
-			{% endif %}
-			{% if headline is not empty and not editmode %}
-				<h2>{{ headline|raw }}</h2>
-			{% endif %}
-
-				{% for i in pimcore_iterate_block(pimcore_block('contentblock')) %}
-					<p class="lead">{{ pimcore_input('subline') }}</p>
-					{{ pimcore_wysiwyg('content') }}
-					{# pimcore_areablock('content', {allowed: ['section']}) #}
-					{# pimcore_areablock('content') #}
-				{% endfor %}
-
 {% endblock %}
 
